@@ -48,6 +48,7 @@ main {
 
 .current-temperature {
   font-size: 48px;
+  display: flex;
 }
 
 .current-weather {
@@ -72,21 +73,22 @@ main {
 }
 
 .current-temperature-icon {
-  position: relative;
-  top: -8px;
-  font-size: 20px;
-  margin-right: 10px;
+  width: 88px;
+  height: 88px;
+  margin-left: 5px;
+  font-size: 25px;
 }
 
 .current-temperature-value {
-  font-size: 80px;
+  font-size: 75px;
   font-weight: bold;
 }
 
 .current-temperature-unit {
-  font-size: 28px;
+  font-size: 25px;
   position: relative;
   top: -38px;
+  margin-top: 50px;
 }
 
 footer {
