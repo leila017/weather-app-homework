@@ -23,8 +23,10 @@ function displayTemperature(response) {
 function search(event) {
   event.preventDefault();
   let searchInputElement = document.querySelector("#search-input");
-  let city = searchInputElement.value;
+  searchCity(searchInputElement.value);
+}
 
+function searchCity(city) {
   let apiKey = "e14445dc5a1fa43f7b3b01otf4a4d0fb";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
@@ -90,4 +92,5 @@ function displayForecast() {
   let forecastElement = document.querySelector("#forecast");
   forecastElement.innerHTML = forecastHtml;
 }
+searchCity("Cape Town");
 displayForecast();
