@@ -9,8 +9,6 @@ function displayTemperature(response) {
   let timeElement = document.querySelector("#time");
   let date = new Date(response.data.time * 1000);
 
-  console.log(response);
-
   cityElement.innerHTML = response.data.city;
   temperatureElement.innerHTML = temperature;
   descriptionElement.innerHTML = response.data.condition.description;
@@ -22,12 +20,6 @@ function displayTemperature(response) {
   getForecast(response.data.city);
 }
 
-function search(event) {
-  event.preventDefault();
-  let searchInputElement = document.querySelector("#search-input");
-  searchCity(searchInputElement.value);
-}
-
 function searchCity(city) {
   let apiKey = "e14445dc5a1fa43f7b3b01otf4a4d0fb";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
@@ -35,10 +27,51 @@ function searchCity(city) {
   axios.get(apiUrl).then(displayTemperature);
 }
 
+function search(event) {
+  event.preventDefault();
+  let searchInputElement = document.querySelector("#search-input");
+  searchCity(searchInputElement.value);
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[date.getDay()];
+}
+
 function getForecast(city) {
   let apiKey = "e14445dc5a1fa43f7b3b01otf4a4d0fb";
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
   axios(apiUrl).then(displayForecast);
+}
+
+function displayForecast(response) {
+  let forecastHtml = "";
+
+  response.data.daily.forEach(function (day, index) {
+    if (index < 5) {
+      forecastHtml =
+        forecastHtml +
+        `
+  <div class="weather-forecast-day">
+    <div class="weather-forecast-date">${formatDay(day.time)}</div>
+    <img src="${day.condition.icon_url}"class="weather-forecast-icon"/>
+    <div class="weather-forecast-temperatures">
+      <div class="weather-forecast-temp">
+        <strong>${Math.round(day.temperature.maximum)}&deg;</strong>
+      </div>
+      <div class="weather-forecast-temp">${Math.round(
+        day.temperature.minimum
+      )}&deg;</div>
+    </div>
+  </div>
+`;
+    }
+  });
+
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHtml;
 }
 
 function formatDate(date) {
@@ -76,30 +109,4 @@ let currentDate = new Date();
 
 currentDateELement.innerHTML = formatDate(currentDate);
 
-function displayForecast(response) {
-  console.log(response.data);
-  let days = ["Tue", "Wed", "Thur", "Fri", "Sat"];
-  let forecastHtml = "";
-
-  days.forEach(function (day) {
-    forecastHtml =
-      forecastHtml +
-      `
-  <div class="weather-forecast-day">
-    <div class="weather-forecast-date">${day}</div>
-    <div class="weather-forecast-icon">⛅</div>
-    <div class="weather-forecast-temperatures">
-      <div class="weather-forecast-temp">
-        <strong>20&deg;</strong>
-      </div>
-      <div class="weather-forecast-temp">15&deg;</div>
-    </div>
-  </div>
-`;
-  });
-
-  let forecastElement = document.querySelector("#forecast");
-  forecastElement.innerHTML = forecastHtml;
-}
 searchCity("Cape Town");
-getForecast("Cape-Town");
