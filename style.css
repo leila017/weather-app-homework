@@ -1,5 +1,8 @@
 body {
-  background: #f9f7fe;
+  background-image: url(https://cdn.pixabay.com/photo/2022/11/24/02/28/clouds-7613361_640.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   font-family: "Roboto", sans-serif;
 }
 
