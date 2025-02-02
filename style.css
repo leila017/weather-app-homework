@@ -24,6 +24,10 @@ header {
   padding-bottom: 30px;
 }
 
+.search-form {
+  width: 100%;
+}
+
 .search-input {
   background-color: #f9f7fe;
   border: none;
@@ -105,6 +109,7 @@ footer {
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
+  width: 100%;
 }
 
 .weather-forecast-date {
